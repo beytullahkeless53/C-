@@ -1,0 +1,101 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;//regex kütüphanesi
+
+namespace TCKİMLİKALGORİTMASI
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        public int haneon()
+        {
+
+
+            int toplam1 = Convert.ToInt32(textBox1.Text[0].ToString()) + Convert.ToInt32(textBox1.Text[2].ToString()) + Convert.ToInt32(textBox1.Text[4].ToString()) + Convert.ToInt32(textBox1.Text[6].ToString()) + Convert.ToInt32(textBox1.Text[8].ToString());
+            int toplam2 = Convert.ToInt32(textBox1.Text[1].ToString()) + Convert.ToInt32(textBox1.Text[3].ToString()) + Convert.ToInt32(textBox1.Text[5].ToString()) + Convert.ToInt32(textBox1.Text[7].ToString());
+
+            int sonuc = ((toplam1 * 7) - toplam2) % 10;
+
+            return sonuc;
+        
+        }
+
+        public  int onbirhane()
+        {
+           int toplam = Convert.ToInt32(textBox1.Text[0].ToString()) + Convert.ToInt32(textBox1.Text[2].ToString()) + Convert.ToInt32(textBox1.Text[4].ToString()) + Convert.ToInt32(textBox1.Text[6].ToString()) + Convert.ToInt32(textBox1.Text[8].ToString() + Convert.ToInt32(textBox1.Text[9].ToString()));
+            int sonuc = toplam % 10;
+
+            return sonuc;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Regex r = new Regex(@"[A-Za-z]");//regex tanımı
+            String ifade = textBox1.Text;
+
+
+            if (textBox1.Text.Equals(""))
+            {
+
+                MessageBox.Show("TC KİMLİK NUMARASI BOŞ GEÇİLEMEZ");
+
+            }
+            else if (textBox1.Text[0].ToString()=="0")
+            {
+                MessageBox.Show("TC KİMLİK NUMARASI'nın İLK HANESİ 0 OLAMAZ");
+            }
+
+           else if (textBox1.Text.Length < 11 || textBox1.Text.Length>11)
+            {
+                MessageBox.Show("TC KİMLİK NUMARASI 11 HANELİ OLMALIDIR");
+
+            }
+            else if (r.IsMatch(ifade))
+            {
+
+                MessageBox.Show("TC KİMLİK NUMARASI HARF OLAMAZ");//tc kimlik numarasında harf varmı yokmu onu kontrol ediyoruz
+            }
+            else
+            {
+
+                int on = haneon();
+                int onbir = onbirhane();
+                if (textBox1.Text[9].ToString()==on.ToString())//texbox icindeki deger stringdir string karşılaştırması yapılır
+                {
+
+                    if (textBox1.Text[10].ToString() == onbir.ToString())
+                    {
+
+                        MessageBox.Show("TC KMLİK NUMARANIZ DOGRU");
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("TC KİMLİK NUMARANIZ YANLIŞ");
+
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("TC KİMLİK NUMARANIZ YANLIŞ");
+
+                }
+           
+             
+            }
+
+        }
+    }
+}
